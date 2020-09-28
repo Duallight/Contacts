@@ -6,5 +6,7 @@ This simple contacts program allows you to add, edit, search, and remove contact
 Each contact can either be a person or an organization, each having unique information fields.
 
 TO DO:
+
 Create a UI for ease of use.
+
 Refactoring to improve expandability. 
