@@ -1,13 +1,31 @@
 package contacts;
+import java.io.*;
 import java.util.Scanner;
 public class Main {
     static Contact contact;
     static contactList phoneBook = new contactList();
     public static void main(String[] args) {
+        try {
+            File file = new File("Contacts.txt");
+            if (!file.createNewFile()) {
+                //deserialize
+                try {
+                    FileInputStream fis = new FileInputStream("Contacts.txt");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    phoneBook = (contactList) ois.readObject();
+                    ois.close();
+                    fis.close();
+                } catch (IOException ieo) {
+                    System.out.println("Error Loading List");
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Scanner scan = new Scanner(System.in);
         System.out.print("[Menu] Enter action (add, list, search, count, exit): ");
         String choice = scan.next();
-        while (!"exit".equalsIgnoreCase(choice)) {
+        while (true) {
             if ("add".equalsIgnoreCase(choice)) { // done
                 add();
             } else if ("list".equalsIgnoreCase(choice)) {
@@ -32,20 +50,8 @@ public class Main {
             } else if ("count".equalsIgnoreCase(choice)) { //done
                 phoneBook.count();
             } else if ("exit".equalsIgnoreCase(choice)) {
-                scan.nextLine();
-                if (phoneBook.isEmpty()) {
-                    System.out.println("Contacts is empty!");
-                } else {
-                    phoneBook.printBook();
-                    System.out.print("Enter index to show info: ");
-                    String str = scan.nextLine();
-                    if (isInt(str)) {
-                        phoneBook.printContact(Integer.parseInt(str));
-                    } else {
-                        System.out.println("Not a valid option");
-                    }
-                }
-
+                saveFile();
+                break;
             } else {
                 System.out.println("Not a valid option.");
             }
@@ -102,6 +108,15 @@ public class Main {
             phoneBook.editContact(--index);
         }
 
+    }
+    private static void saveFile() {
+        try {
+            FileOutputStream fout = new FileOutputStream("Contacts.txt");
+            ObjectOutputStream s = new ObjectOutputStream(fout);
+            s.writeObject(phoneBook);
+        } catch (Exception e) {
+            System.out.println("Error: Could not save file");
+        }
     }
     private static void record(int index) {
         index--;

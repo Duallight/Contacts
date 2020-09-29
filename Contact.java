@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Contact {
+public class Contact implements java.io.Serializable {
     private LocalDateTime created;
     private LocalDateTime lastEdit;
     private String phoneNumber;

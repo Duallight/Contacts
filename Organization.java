@@ -2,7 +2,7 @@ package contacts;
 
 import java.util.Scanner;
 
-public class Organization extends Contact{
+public class Organization extends Contact implements java.io.Serializable {
     private String name;
     private String address;
     public Organization(String name, String address, String phone) {

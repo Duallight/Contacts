@@ -2,7 +2,7 @@ package contacts;
 
 import java.util.Scanner;
 
-public class Person extends Contact {
+public class Person extends Contact implements java.io.Serializable  {
     private String firstName;
     private String lastName;
     private String birthDay;

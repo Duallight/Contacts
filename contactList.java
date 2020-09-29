@@ -3,7 +3,7 @@ package contacts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class contactList {
+public class contactList implements java.io.Serializable {
     private final List<Contact> CONTACT_LIST = new ArrayList<>();
 
     public contactList () { }
